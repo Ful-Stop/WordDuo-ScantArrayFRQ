@@ -76,11 +76,13 @@ public class WordDuoList {
     ("fox", "red"), ("the", "red")
      */
     public int numMatches(){
-        /* part B  */
-
-
-
-        return 0;  // replace this
+        int a = 0;
+        for (int i = 0; i < allDuos.size(); i ++){
+            if (allDuos.get(i).getFirst().equals(allDuos.get(i).getSecond())){
+                a ++;
+            }
+        }
+        return a;
     }
 
     /*Write the method moveMatchesToTop()  THis method will look for
@@ -94,7 +96,13 @@ public class WordDuoList {
 
      */
     public void moveMatchesToTop(){
-        /* part c */
+        for (int i = 0; i < allDuos.size(); i ++){
+            WordDuo a;
+            if (allDuos.get(i).getFirst().equals(allDuos.get(i).getSecond())) {
+                a = allDuos.remove(i);
+                allDuos.add(0, a);
+            }
+        }
 
 
 

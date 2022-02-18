@@ -46,11 +46,12 @@ public class ScantArray {
      *                0 <= col < getNumColumns()
      */
     public int getValueAt(int row, int col){
-        /* part a */
-
-
-
-        return 0;    // replace this
+        for (int i = 0; i < entries.size(); i ++){
+            if (entries.get(i).getRow() == row && entries.get(i).getColumn() == col){
+                return entries.get(i).getValue();
+            }
+        }
+        return 0;
     }
 
     /** Removes a column from the scant array and shifts
@@ -60,7 +61,17 @@ public class ScantArray {
      * Precondition:  0 <= col < getNumColumns()
      */
     public void removeColumn(int col){
-        /* part b */
+        ScantArrayEntry a;
+        for (int i = 0; i < entries.size(); i ++){
+            if (entries.get(i).getColumn() == col) {
+                entries.remove(i);
+            }
+            else if(entries.get(i).getColumn() > col){
+                a = new ScantArrayEntry(entries.get(i).getRow(), entries.get(i).getColumn() - 1, entries.get(i).getValue());
+                entries.remove(i);
+                entries.add(a);
+            }
+        }
 
 
 
@@ -77,8 +88,18 @@ public class ScantArray {
      * @return
      */
     public String toString(){
-        /* part c */
         String s = "";
+        for (int c = 0; c < getNumColumns(); c ++){
+            for (int r = 0; r < getNumRows(); r ++){
+                for (int i = 0; i < entries.size(); i ++){
+                    if (entries.get(i).getRow() == r && entries.get(i).getColumn() == c){
+                        s += entries.get(i).getValue();
+                    }
+                }
+                s += " ";
+            }
+            s += "\n";
+        }
 
 
 
