@@ -61,20 +61,18 @@ public class ScantArray {
      * Precondition:  0 <= col < getNumColumns()
      */
     public void removeColumn(int col){
-        ScantArrayEntry a;
-        for (int i = 0; i < entries.size(); i ++){
+        for (int i = entries.size() - 1; i >= 0; i --){
             if (entries.get(i).getColumn() == col) {
                 entries.remove(i);
             }
             else if(entries.get(i).getColumn() > col){
-                a = new ScantArrayEntry(entries.get(i).getRow(), entries.get(i).getColumn() - 1, entries.get(i).getValue());
+                ScantArrayEntry a = new ScantArrayEntry(entries.get(i).getRow(), entries.get(i).getColumn() - 1, entries.get(i).getValue());
                 entries.remove(i);
                 entries.add(a);
             }
+
         }
-
-
-
+        numColumns -= 1;
 
     }
 
@@ -89,14 +87,22 @@ public class ScantArray {
      */
     public String toString(){
         String s = "";
-        for (int c = 0; c < getNumColumns(); c ++){
-            for (int r = 0; r < getNumRows(); r ++){
-                for (int i = 0; i < entries.size(); i ++){
-                    if (entries.get(i).getRow() == r && entries.get(i).getColumn() == c){
-                        s += entries.get(i).getValue();
+        boolean check = false;
+        for (int r = 0; r < getNumRows(); r ++){
+            for (int c = 0; c < getNumColumns(); c ++){
+                for (int e = 0; e < entries.size(); e ++) {
+                    if (entries.get(e).getRow() == r && entries.get(e).getColumn() == c) {
+                        s += entries.get(e).getValue();
+                        check = true;
+                        break;
                     }
                 }
-                s += " ";
+                if (check){
+                    check = false;
+                }
+                else{
+                    s += "0";
+                }
             }
             s += "\n";
         }
@@ -125,7 +131,22 @@ public class ScantArray {
         sa1.removeColumn(1);
         System.out.println(sa1);
 
-        /******* please add one more test of your own *******/
+        ScantArray sa2 = new ScantArray(6,6);
+        sa2.addEntry(5,3,8);
+        sa2.addEntry(0,2,4);
+        sa2.addEntry(3,5,-3);
+        sa2.addEntry(2,4,1);
+
+        System.out.println(sa2.getValueAt(5,3));
+        System.out.println(sa2.getValueAt(3,5));
+        System.out.println(sa2.getValueAt(0,0));
+        System.out.println("rows "+ sa2.getNumRows());
+        System.out.println("columns "+ sa2.getNumColumns());
+
+        System.out.println(sa2);
+
+        sa2.removeColumn(3);
+        System.out.println(sa2);
     }
 }
 
